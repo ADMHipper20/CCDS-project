@@ -4,7 +4,8 @@ namespace App\Filament\Pages;
 
 use Filament\Pages\Dashboard as BaseDashboard;
 use Filament\Widgets;
-use App\Filament\Widgets\MonthlyChartWidget;
+use App\Filament\Widgets\MonthlySalesWidget;
+use App\Filament\Widgets\MonthlyCategoriesWidget;
 
 class Dashboard extends BaseDashboard
 {
@@ -18,7 +19,8 @@ class Dashboard extends BaseDashboard
     public function getWidgets(): array
     {
         return [
-            MonthlyChartWidget::class,
+            MonthlySalesWidget::class,
+            MonthlyCategoriesWidget::class,
         ];
     }
 

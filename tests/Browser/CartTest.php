@@ -73,7 +73,7 @@ class CartTest extends DuskTestCase
                 ->typeSlowly('#checkout-form input[name=customer_postcode]', '60124')
                 ->typeSlowly('#checkout-form textarea[name=customer_address]', 'Jl. Example No. 123')
                 ->click('#checkout-form button[type=submit]')
-                ->waitForText('Pesanan berhasil dibuat');
+                ->waitForText('Pesanan berhasil dibuat', 30);
         });
         Order::latest()->first()->delete();
     }

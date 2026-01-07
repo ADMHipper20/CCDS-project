@@ -28,7 +28,7 @@
           <div class="ps-product__header">
             <div class="ps-product__thumbnail">
               <figure class="d-flex justify-content-center justify-content-lg-end mb-0">
-                <img src="{{ env('API_IMAGE_HOST')."/storage/".$product['image'] }}" height="340" alt="Foto produk">
+                <img src="{{ route('product.image', ['filename' => $product['image']]) }}" height="340" alt="Foto produk">
               </figure>
             </div>
             <div class="ps-product__info">
@@ -74,7 +74,7 @@
           </div>
 
           <div class="ps-product__content">
-            <form method="POST" action="{{ env("API_HOST")."/api/reviews/addOrUpdate" }}" class="ps-form--review pt-0">
+            <form method="POST" action="{{ route('reviews.submit') }}" class="ps-form--review pt-0">
               @csrf
               <input type="hidden" name="product_id" value="{{ $product['id'] }}">
               <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
@@ -148,7 +148,7 @@
       const product = {
         id: {{ $product['id'] }},
         name: '{{ $product['title'] }}',
-        image: '{{ env('API_HOST').'/storage/'.$product['image'] }}',
+        image: '{{ route('product.image', ['filename' => $product['image']]) }}',
         price: {{ $product['price'] }},
       };
       const quantity = parseInt(quantityInput.value || 1);

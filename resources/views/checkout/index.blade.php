@@ -65,6 +65,13 @@
 
 @section('customScripts')
   <script>
+    window.addEventListener('storage', function(event) {
+      if (event.key === 'cart') {
+        console.log('Cart changed in another tab. Reloading...');
+        window.location.reload();
+      }
+    });
+    
     document.addEventListener('DOMContentLoaded', function () {
       const checkoutForm = document.getElementById('checkout-form');
       const submitButton = checkoutForm.querySelector('button[type="submit"]');
@@ -88,11 +95,12 @@
           data.cart = cart;
 
           try {
-            const response = await fetch('{{ env('API_HOST')."/api/orders/checkout" }}', {
+            const response = await fetch('{{ route("checkout-payment") }}', { 
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/pdf',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}' // <--- REQUIRED: Security token for web routes
               },
               body: JSON.stringify(data),
             });

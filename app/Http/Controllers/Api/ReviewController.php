@@ -79,7 +79,7 @@ class ReviewController extends Controller
     /**
      * Add or update a review based on order_receipt.
      */
-    public function addOrUpdate(Request $request)
+    public function submit(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'order_receipt' => 'required|string',

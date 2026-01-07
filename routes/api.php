@@ -23,4 +23,4 @@ Route::middleware('auth.bearer')->group(function () {
 });
 
 Route::post('/orders/checkout', [OrderController::class, 'checkout']);
-Route::post('/reviews/addOrUpdate', [ReviewController::class, 'addOrUpdate']);
+Route::post('/reviews/submit', [ReviewController::class, 'submit']);

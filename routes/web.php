@@ -15,3 +15,5 @@ Route::get('/order-check', [GeneralController::class, 'orderCheck'])->name('orde
 Route::get('/checkout', [GeneralController::class, 'checkout'])->name('checkout');
 Route::post('/checkout-payment', [GeneralController::class, 'checkoutPayment'])->name('checkout-payment');
 Route::get('/{slug?}', [GeneralController::class, 'single'])->name('single');
+Route::post('/reviews/submit', [GeneralController::class, 'submitReview'])->name('reviews.submit');
+Route::get('/storage/{filename}', [GeneralController::class, 'productImage'])->name('product.image');

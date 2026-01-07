@@ -30,10 +30,13 @@
 
                 @foreach ($categories as $item)
                   <li>
-                    <a href="{{ url()->current().'?'.http_build_query(array_merge(request()->except('page'), ['category' => $item['id']])) }}"
-                      @class(['active' => $selectedCategory == $item['id']])>
-                      {{ $item['title'] }}
-                    </a>
+                    {{-- Ensure $item is actually an array before accessing keys --}}
+                    @if(is_array($item)) 
+                      <a href="{{ url()->current().'?'.http_build_query(array_merge(request()->except('page'), ['category' => $item['id']])) }}"
+                        @class(['active' => $selectedCategory == $item['id']])>
+                        {{ $item['title'] }}  {{-- <--- FIXED: Use brackets ['title'] --}}
+                      </a>
+                    @endif
                   </li>
                 @endforeach
               </ul>

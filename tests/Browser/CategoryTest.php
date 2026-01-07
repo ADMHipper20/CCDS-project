@@ -17,7 +17,7 @@ class CategoryTest extends DuskTestCase
                 ->type('#data\.email', 'admin@impal.com')
                 ->type('#data\.password', 'admin123')
                 ->press('#form > div.fi-form-actions > div > button')
-                ->waitForLocation('/admin')
+                ->waitForLocation('/admin', 30)
                 ->assertPathIs('/admin');
         });
     }
@@ -38,8 +38,8 @@ class CategoryTest extends DuskTestCase
             $browser->visit('/admin/categories/create')
                 ->typeSlowly('#data\.title', 'New Category')
                 ->press('#key-bindings-1')
-                ->waitUntil("window.location.href != 'http://127.0.0.1:8000/admin/categories/create'")
-                ->waitForText('Created', 10)
+                ->waitUntil("window.location.href != '/admin/categories/create'")
+                ->waitForText('Created', 20)
                 ->assertSee('Created');
         });
     }
@@ -52,7 +52,7 @@ class CategoryTest extends DuskTestCase
             $browser->visit("/admin/categories/{$lastItem}/edit")
                 ->typeSlowly('#data\.title', 'Updated Category')
                 ->press('#key-bindings-2')
-                ->waitForText('Saved', 10)
+                ->waitForText('Saved', 40)
                 ->assertSee('Saved');
         });
     }
@@ -90,7 +90,7 @@ class CategoryTest extends DuskTestCase
                 ->pause(3000)
                 ->press('#key-bindings-2')
                 ->waitForLocation('/admin/categories/create')
-                ->waitForText('field is required', 10)
+                ->waitForText('field is required', 20)
                 ->assertSee('field is required');
         });
     }

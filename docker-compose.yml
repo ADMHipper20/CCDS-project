@@ -7,8 +7,14 @@ services:
       - .:/var/www
     networks:
       - laravel
+    environment:
+      - DUSK_DRIVER_URL=http://selenium:4444/wd/hub
     deploy:
-      replicas: 1
+      replicas: 3
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
 
   nginx-web:
     image: nginx:alpine
@@ -22,7 +28,7 @@ services:
     networks:
       - laravel
     deploy:
-      replicas: 3
+      replicas: 2
 
   nginx-api:
     image: nginx:alpine
@@ -36,19 +42,36 @@ services:
     networks:
       - laravel
     deploy:
-      replicas: 3
+      replicas: 2
       restart_policy:
         condition: on-failure
       update_config:
         order: start-first
 
+  selenium:
+    image: selenium/standalone-chrome:latest
+    networks:
+      - laravel
+    volumes:
+      - /dev/shm:/dev/shm # Prevents browser crashes
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+  
   mysql:
-    image: mysql:8.0
+    image: mysql:latest
+    expose: 
+      - "3306"
     environment:
-      MYSQL_DATABASE:       # Jangan lupa isi
-      MYSQL_USER:           # Jangan lupa isi
-      MYSQL_PASSWORD:       # Jangan lupa isi
-      MYSQL_ROOT_PASSWORD:  # Jangan lupa isi
+      MYSQL_DATABASE: bakery
+      # MYSQL_USER: root
+      # MYSQL_PASSWORD: rootpass
+      MYSQL_ROOT_PASSWORD: rootpass
     volumes:
       - mysql-data:/var/lib/mysql
     networks:

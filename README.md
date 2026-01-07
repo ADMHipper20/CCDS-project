@@ -10,10 +10,17 @@
 ---
 
 ## Initial setup
-Command untuk setup awal, pastikan file `.env` sudah disetup.
+Command untuk setup awal, pastikan file `.env` sudah disetup. Isi `BEARER_TOKEN` dengan string random. 
+Lalu copy konten dari `storage/app/public` ke folder `public/storage`
 ```shell
 # Install dependency
 $ composer install
+
+# Clear cache
+$ composer dump-autoload
+$ php artisan clear-compiled
+$ php artisan optimize:clear
+$ php artisan config:cache
 
 # To generate APP_KEY in .env
 $ php artisan key:generate

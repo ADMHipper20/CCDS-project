@@ -1,7 +1,7 @@
 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6 ">
   <div class="ps-product border rounded overflow-hidden" style="background: #fff4e9;">
     <div class="ps-product__thumbnail">
-      <img src="{{ env('API_IMAGE_HOST')."/storage/".$item['image'] }}" alt="" class="h-100 object-fit-cover" />
+      <img src="{{ route('product.image', ['filename' => $item['image']]) }}" alt="" class="h-100 object-fit-cover" />
       <a class="ps-product__overlay" href="{{ url("products/${item['id']}") }}"></a>
     </div>
     <div class="ps-product__content p-4">
@@ -18,7 +18,7 @@
       </div>
       <div class="ps-product__shopping h-100 d-flex align-items-center justify-content-center">
         <button class="ps-btn ps-product__add-to-cart cart-add" data-id="{{ $item['id'] }}" data-name="{{ $item['title'] }}" 
-          data-image="{{ env('API_HOST')."/storage/".$item['image'] }}" data-price="{{ $item['price'] }}">
+          data-image="{{ route('product.image', ['filename' => $item['image']]) }}" data-price="{{ $item['price'] }}">
           Add to Cart
         </button>
       </div>
