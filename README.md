@@ -46,9 +46,6 @@ $ php artisan db:seed
 
 ## Start project
 ```shell
-# Aktifkan main project
-$ php artisan serve
-
 # Aktifkan API_HOST
 $ php artisan serve --port=8001
 ```
@@ -79,23 +76,25 @@ $ php artisan dusk tests/Browser/{NamaTest}.php
 Prasyarat:
 1. Docker Desktop sudah aktif
 2. Setting `DB_` di `.env` sesuaikan dengan setting mysql di `docker-compose.yml` (`DB_HOST` isi dengan "mysql")
-3. Gunakan "http://nginx-api" pada setting `API_HOST` di `.env`
+3. Gunakan "http://nginx-api" pada setting `API_HOST` dan "http://nginx-web" pada `APP_URL` di `.env`
 ```
 ```shell
 # Init docker swarm
-$ docker swarm init
+$ docker swarm init (jika sudah ada, tidak perlu)
 
 # Build image
 $ docker build -t laravel-filament-app -f docker/php/Dockerfile .
 
 # Deploy stack
-$ docker stack deploy -c docker-compose.yml laravel
+$ docker stack deploy -c docker-compose.yml {name_container}
 
 # Cek services apakah sudah aktif
 $ docker service ls
 
 # Masuk ke container app
-$ docker exec -it $(docker ps -q -f name=laravel_app) bash
+$ docker exec -it $(docker ps -q -f name={name_container}_app) bash
+# Masuk ke container mysql
+$ docker exec -it $(docker ps -q -f name={name_container}_mysql) bash
 
 # Setup container app
 $ composer install
